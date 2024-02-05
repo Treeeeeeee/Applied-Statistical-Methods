@@ -1,0 +1,121 @@
+---
+title: "Lab2"
+author: "Jamil Ahmed"
+date: "2024-01-30"
+output: 
+  html_document:
+    toc: True
+    toc_float: True
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task 1
+
+```{r}
+# This is the directory structure to my data
+
+getwd()
+```
+
+# Task 2
+
+```{r}
+
+#	Read the file and obtain the first six lines of the data using “head()”
+
+dird="C:/Users/Ahmed/OneDrive/Desktop/Math Labs/Lab 2/DATAxls/"
+#function to read data
+
+myread=function(csv){
+  fl=paste(dird,csv,sep="")
+  read.table(fl,header=TRUE,sep=",")
+}
+mpg.df=myread("EPAGAS.csv")
+head(mpg.df)
+```
+
+# Task 3
+
+```{r}
+# Make the object mpg, the number of miles per gallon vector.
+mpg= mpg.df$MPG
+head(mpg)
+```
+
+```{r}
+# Transform the mpg variable to z and verify these results.
+z=(mpg-mean(mpg))/sd(mpg)
+class(z)
+```
+
+```{r}
+# Using z, find the values of mpg that are possible outliers.
+
+z[abs(z)>=2 & abs(z)<=3]
+```
+
+```{r}
+# Using z, find the values of mpg that defined as outliers.
+mpg[abs(z)>3]
+``` 
+ 
+```{r}
+# Plot the outliers in red and the possible outliers in blue
+mycol = ifelse(abs(z)>3, "Red",
+        ifelse(abs(z)>=2 &abs(z)<=3,"Blue", "Black"))  
+
+library(lattice)
+dotplot(mpg,col=mycol, main="Plot of MPG")
+```
+
+
+# Task 4
+
+```{r}
+#	Make a boxplot of the mpg variable
+boxplot(mpg,main="Boxplot of MPG",xlab= "MPG",col="Black",horizontal=TRUE,notch=TRUE)
+```
+
+Predict the proportion of data within 2 standard deviations of the mean of the mpg data.
+
+According to Chebyshev:
+
+Within 2 standard deviations of the mean (k=2)
+At least 1-1/4=3/4
+3/4
+
+```{r}
+ # Use R to calculate the exact proportion within 2 standard deviation of the mean.
+length(mpg[abs(z)<2])/length(mpg)
+```
+Does Chebyshev agree with the data?
+
+No, Chebyshev's says that 3/4 or 75% of the data should be within 2 standard deviations of the mean. However, when we used R, we found that proprotion to be .96, or 96%
+
+
+Now use the empirical rule, what proportion (according to the rule) of the data should be within 2 standard deviations of the mean?
+
+According to the Empirical rule, 95% of the data should be within 2 standard devations
+
+How well does it correspond?
+It corresponds pretty well, Using R, we saw that 96% of the data is within 2 standard deviations of the mean, Where the Empirical rule estimates that 95% of the data is within 2 standard deviations.
+
+
+Is the Empirical rule valid in this case? Why?
+Yes it is valid. The Empirical rule is an approximation. With a large enough sample size we should get closer and closer to 95%. We got 96%, but that does not invalidate the Empirical rule.
+
+Here is a Histogram visualizing the data - We can see that the majority of the data is within 2 standard deviations of the mean (depicted by the green lines) further validating the Empirical rule.
+```{r}
+
+hist(mpg, breaks = 20, main = "Histogram", xlab = "MPG", ylab = "Frequency")
+
+# Add lines for mean and standard deviations
+abline(v = mean(mpg), col = "red", lwd = 2)  # Mean
+abline(v = mean(mpg) + c(-1, 1) * sd(mpg), col = "blue", lty = 2)  # ±1 SD
+abline(v = mean(mpg) + c(-2, 2) * sd(mpg), col = "green", lty = 2)  # ±2 SD
+abline(v = mean(mpg) + c(-3, 3) * sd(mpg), col = "orange", lty = 2)  # ±3 SD
+```
+
