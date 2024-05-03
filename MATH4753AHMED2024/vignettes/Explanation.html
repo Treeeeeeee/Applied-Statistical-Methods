@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>What the package does</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">What the package does</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MATH4753AHMED2024)</span></code></pre></div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>These are several functions created or given throughout the course of
+MATH 4753 taught by Dr. Wayne Stewart. This documen will have 4
+functions that will be used and have an explanation afterwords
+describing the function and what it does.</p>
+<p>I will be using the FIREDAM data set, it has been implemented into
+the package as “ddt”</p>
+</div>
+<div id="zscore" class="section level1">
+<h1>1. zscore</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">zscore</span>(ddt<span class="sc">$</span>DISTANCE)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt;  [1]  0.07612994 -0.93893596  0.83742937 -0.62172787 -0.11419491  1.40840394</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;  [7] -1.63679377 -0.17763653 -0.43140301  0.64710451 -0.74861110 -1.38302729</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; [13]  1.78905365  0.96431261  0.32989642</span></span></code></pre></div>
+<p>The Z score measures how many standard deviations a data point is
+from the mean of the vector. It’s commonly used in outlier detection to
+identify observations that deviate significantly from the mean of the
+dataset.</p>
+<p>each data point is calculated and then the zscore for the data point
+is put out in order of which the vector was put in.</p>
+</div>
+<div id="mybin" class="section level1">
+<h1>2. mybin</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>MATH4753AHMED2024<span class="sc">::</span><span class="fu">mybin</span>(<span class="at">iter=</span><span class="dv">100</span>,<span class="at">n=</span><span class="dv">10</span>,<span class="at">p=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>#&gt; 
+#&gt;    0    1    2    3    4    5    6    7    8    9   10 
+#&gt; 0.00 0.01 0.02 0.12 0.25 0.25 0.21 0.12 0.02 0.00 0.00</code></pre>
+<p>The <code>mybin</code> function is designed to simulate a binomial
+distribution. It takes three parameters as input: <code>iter</code>,
+<code>n</code>, and <code>p</code>. The <code>iter</code> parameter
+determines the number of iterations to perform, with each iteration
+representing a sampling from the binomial distribution. The
+<code>n</code> parameter specifies the number of bins in the simulation,
+while <code>p</code> denotes the probability of success for each trial
+in the binomial distribution. The function then computes the number of
+successes in each iteration and generates a barplot representing the
+distribution of these successes. Finally, it returns a numeric vector
+containing the proportions of successes for each possible outcome in the
+simulation, normalized to sum to 1.</p>
+</div>
+<div id="myquad" class="section level1">
+<h1>3. myquad</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>MATH4753AHMED2024<span class="sc">::</span><span class="fu">myquad</span>(ddt<span class="sc">$</span>DISTANCE)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt;  [1]  0.56  0.24  4.16 -0.21  0.11  8.75  2.99  0.00 -0.24  2.99 -0.09  1.71</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; [13] 12.71  5.04  1.44</span></span></code></pre></div>
+<p>Quadratic Function This function calculates the quadratic function
+for a given numeric vector. from the beginning of class</p>
+</div>
+<div id="ntickets" class="section level1">
+<h1>4 ntickets</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>MATH4753AHMED2024<span class="sc">::</span><span class="fu">ntickets</span>(<span class="dv">150</span>,<span class="fl">0.1</span>,<span class="fl">0.05</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; $nd</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; [1] 163</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; $nc</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1] 142.6771</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; $N</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; [1] 150</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; $p</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; [1] 0.05</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; $gamma</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; [1] 0.1</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The <code>ntickets</code> function is designed to calculate the
+number of tickets to be sold for a flight, taking into account factors
+such as the number of seats available, the probability of a “show” (the
+likelihood that passengers will actually board the flight), and the
+probability of overbooking. It offers two calculation methods: one based
+on a discrete distribution and the other using a normal
+approximation.</p>
+<p>The function calculates the number of tickets to be sold
+(<code>nd</code>) using the discrete distribution method and the number
+of tickets (<code>nc</code>) using the normal approximation. It then
+prints out a named list containing <code>nd</code>, <code>nc</code>,
+<code>N</code> (number of seats), <code>p</code> (probability of a
+“show”), and <code>gamma</code> (probability of overbooking).
+Additionally, it generates plots of the objective function versus
+<code>n</code> for both the discrete and continuous cases, providing
+visual insights into the optimization process.</p>
+</div>
+<div id="data-set" class="section level1">
+<h1>data set</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>MATH4753AHMED2024<span class="sc">::</span>ddt</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt;    DISTANCE DAMAGE</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; 1       3.4   26.2</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; 2       1.8   17.8</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; 3       4.6   31.3</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 4       2.3   23.1</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; 5       3.1   27.5</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 6       5.5   36.0</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 7       0.7   14.1</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; 8       3.0   22.3</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 9       2.6   19.6</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 10      4.3   31.3</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; 11      2.1   24.0</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; 12      1.1   17.3</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; 13      6.1   43.2</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; 14      4.8   36.4</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 15      3.8   26.1</span></span></code></pre></div>
+</div>
+<div id="devcheck-last-10-lines" class="section level1">
+<h1>devcheck last 10 lines</h1>
+<p>✔ checking DESCRIPTION meta-information … ✔ checking top-level files
+✔ checking for left-over files … ✔ checking index information … ✔
+checking package subdirectories … ✔ checking R files for non-ASCII
+characters … ✔ checking R files for syntax errors … ✔ checking whether
+the package can be loaded … ✔ checking whether the package can be loaded
+with stated dependencies … ✔ checking whether the package can be
+unloaded cleanly … ✔ checking whether the namespace can be loaded with
+stated dependencies … ✔ checking whether the namespace can be unloaded
+cleanly (344ms) ✔ checking loading without being on the library search
+path … ✔ checking dependencies in R code (582ms) ✔ checking S3
+generic/method consistency … ✔ checking replacement functions … ✔
+checking foreign function calls … ✔ checking R code for possible
+problems (2.8s) ✔ checking Rd files … ✔ checking Rd metadata … ✔
+checking Rd line widths … ✔ checking Rd cross-references … ✔ checking
+for missing documentation entries … ✔ checking for code/documentation
+mismatches (692ms) ✔ checking Rd sections (583ms) ✔ checking Rd contents
+… ✔ checking for unstated dependencies in examples … ✔ checking contents
+of ‘data’ directory … ✔ checking data for non-ASCII characters … ✔
+checking LazyData … ✔ checking data for ASCII and uncompressed saves … ✔
+checking installed files from ‘inst/doc’ ✔ checking files in ‘vignettes’
+✔ checking examples (573ms) ✔ checking for unstated dependencies in
+vignettes … ✔ checking package vignettes in ‘inst/doc’ … ✔ checking
+re-building of vignette outputs (1.6s) ✔ checking for non-standard
+things in the check directory ✔ checking for detritus in the temp
+directory …</p>
+<p>── R CMD check results ───────────────────────── MATH4753AHMED2024
+0.1.0 ──── Duration: 19.2s</p>
+<p>0 errors ✔ | 0 warnings ✔ | 0 notes ✔</p>
+<p>R CMD check succeeded</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

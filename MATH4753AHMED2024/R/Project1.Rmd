@@ -1,0 +1,88 @@
+---
+title: "ntickets"
+author: "Jamil Ahmed"
+date: "2024-04-07"
+output: 
+  html_document:
+    toc: True
+    toc_float: True
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Function:
+```{r, echo=TRUE}
+ntickets <- function(N, gamma, p) {
+  # Calculate nd using discrete distribution
+  nd <- stats::qpois(1 - gamma - p, lambda = N)
+
+  # Calculate nc using normal approximation
+  mu <- N * (1 - gamma - p)
+  sigma <- sqrt(N * (1 - gamma - p) * (1 + gamma))
+  nc <- stats::qnorm(1 - gamma, mean = mu, sd = sigma)
+
+  # Print named list
+  print(list(nd = nd, nc = nc, N = N, p = p, gamma = gamma))
+
+  # Create plot of Objective function Vs n for discrete case
+  n_values <- seq(0, N * 2, by = 1)
+  objective_discrete <- 1 - (1 - gamma - stats::ppois(n_values, lambda = N))
+  plot(n_values, objective_discrete, type = 'l', col = 'blue',
+       xlab = 'n', ylab = 'Objective function', main = 'Objective function Vs n (Discrete)')
+
+  # Create plot of Objective function Vs n for continuous case
+  objective_continuous <- stats::pnorm(n_values, mean = mu, sd = sigma)
+  plot(n_values, objective_continuous, type = 'l', col = 'red',
+       xlab = 'n', ylab = 'Objective function', main = 'Objective function Vs n (Continuous)')
+}
+
+```
+
+# running the code:
+```{r}
+ntickets <- function(N, gamma, p) {
+  # Calculate nd using discrete distribution
+  nd <- stats::qpois(1 - gamma - p, lambda = N)
+
+  # Calculate nc using normal approximation
+  mu <- N * (1 - gamma - p)
+  sigma <- sqrt(N * (1 - gamma - p) * (1 + gamma))
+  nc <- stats::qnorm(1 - gamma, mean = mu, sd = sigma)
+
+  # Print named list
+  print(list(nd = nd, nc = nc, N = N, p = p, gamma = gamma))
+
+  # Create plot of Objective function Vs n for discrete case
+  n_values <- seq(0, N * 2, by = 1)
+  objective_discrete <- 1 - (1 - gamma - stats::ppois(n_values, lambda = N))
+  plot(n_values, objective_discrete, type = 'l', col = 'blue',
+       xlab = 'n', ylab = 'Objective function', main = 'Objective function Vs n (Discrete)')
+
+  # Create plot of Objective function Vs n for continuous case
+  objective_continuous <- stats::pnorm(n_values, mean = mu, sd = sigma)
+  plot(n_values, objective_continuous, type = 'l', col = 'red',
+       xlab = 'n', ylab = 'Objective function', main = 'Objective function Vs n (Continuous)')
+}
+
+ntickets(N=400,gamma = 0.02, p = 0.95)
+```
+
+
+# Display last 5 lines of check
+
+```{r}
+# Load devtools package
+library(devtools)
+
+# Check the package
+check_result <- capture.output(check("ntickets"))
+
+# Extract the last 5 lines of the output
+last_5_lines <- tail(check_result, 5)
+
+# Print the last 5 lines
+print(last_5_lines)
+getwd()
+```
